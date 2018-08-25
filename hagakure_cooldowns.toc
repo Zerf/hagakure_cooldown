@@ -1,0 +1,31 @@
+﻿## Interface: 40300
+## Title: Hagakure Cooldowns
+## Notes: Draw cooldown's interface
+## Author: m9ist
+## Version: 0.0.2
+## Credits: hagakure.su
+## E-mail: kazmin.oleg@gmail.com
+## SavedVariables: hagakure_cooldownsDB
+
+libs\AceDB-3.0\AceDB-3.0.xml
+libs\AceAddon-3.0\AceAddon-3.0.xml
+libs\AceGUI-3.0\AceGUI-3.0.xml
+libs\AceConsole-3.0\AceConsole-3.0.xml
+libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
+libs\AceEvent-3.0\AceEvent-3.0.xml
+libs\AceLocale-3.0\AceLocale-3.0.xml
+libs\AceTimer-3.0\AceTimer-3.0.xml
+LibStub\LibStub.lua
+
+libs\AceConfigRegistry-3.0.lua
+libs\AceConfigCmd-3.0.lua
+libs\AceConfigDialog-3.0.lua
+libs\AceConfig-3.0.lua
+
+localization\ruRU.lua
+
+main.lua
+func.lua
+spells.lua
+spell.lua
+config.lua
