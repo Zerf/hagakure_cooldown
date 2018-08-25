@@ -34,7 +34,7 @@ local conf = {
 	},
 	types = {
 		[1] = {
-			top = 700,
+			top = 680,
 			left = 228,
 			point = "BOTTOMLEFT",
 			w = 120,
@@ -42,7 +42,7 @@ local conf = {
 			enable = true,
 		},
 		[2] = {
-			top = 700,
+			top = 680,
 			left = 334,
 			point = "BOTTOMLEFT",
 			w = 120,
@@ -50,7 +50,7 @@ local conf = {
 			enable = true,
 		},
 		[3] = {
-			top = 700,
+			top = 680,
 			left = 440,
 			point = "BOTTOMLEFT",
 			w = 120,
@@ -58,7 +58,7 @@ local conf = {
 			enable = true,
 		},
 		[4] = {
-			top = 700,
+			top = 680,
 			left = 549,
 			point = "BOTTOMLEFT",
 			w = 120,
@@ -66,7 +66,7 @@ local conf = {
 			enable = true,
 		},
 		[5] = {
-			top = 700,
+			top = 680,
 			left = 659,
 			point = "BOTTOMLEFT",
 			w = 120,
@@ -74,7 +74,7 @@ local conf = {
 			enable = true,
 		},
 		[6] = {
-			top = 700,
+			top = 680,
 			left = 773,
 			point = "BOTTOMLEFT",
 			w = 120,
@@ -82,7 +82,7 @@ local conf = {
 			enable = true,
 		},
 		[7] = {
-			top = 700,
+			top = 680,
 			left = 878,
 			point = "BOTTOMLEFT",
 			w = 120,
@@ -90,7 +90,7 @@ local conf = {
 			enable = true,
 		},
 		[8] = {
-			top = 700,
+			top = 680,
 			left = 989,
 			point = "BOTTOMLEFT",
 			w = 120,
@@ -219,12 +219,12 @@ function HCoold:CombatLog(...)
 		... :
 			2 - timestamp
 			3 - event
-			6 - sourceName
-			10 - destName
+			5 - sourceName
+			8 - destName
 				SPELL:
-					13 - spellID
-					14 - spellName
-					15 - spellSchool
+					10 - spellID
+					11 - spellName
+					12 - spellSchool
 				_AURA_APPLIED
 				_AURA_REMOVED
 					16 - auraType  // BUFF DEBUFF
@@ -240,28 +240,36 @@ function HCoold:CombatLog(...)
 	local event = inp[3]
 
 	if string.find(event,"UNIT_DIED") then
-		-- self:Printf("died %s %s %s %s %s %s",inp[10])
-		self:KillUnit(inp[10])
+		-- self:Printf("died %s %s %s %s %s %s",inp[8])
+		self:KillUnit(inp[8])
 		return true
 	end
-	
-	if not self:IsInRaid(inp[6]) then return false end
+ 
 
-	-- self:Printf("%s %s %s %s", inp[2], inp[3], inp[6], inp [10])
-	if string.find(event,"SPELL") then 
-		local spellID, spellName = inp[13], inp[14]
-		self:RenewSpec(inp[13],inp[6])
-		--self:Printf("%s %s %s",event, spellID, spellName)
+	if string.find(event,"SPELL") then 	
+		local spellID, spellName = inp[10], inp[11]
+		
+		if not self:IsInRaid(inp[5]) then return false end
+		self:RenewSpec(inp[10],inp[5])
+		
+		--self:Printf("%s %s %s %s %s", inp[2], inp[3], inp[10], inp[11], inp[5])
+		
 		local spell = self:IsTrackSpell(spellID)
+		if not spell then return false end
+		
+		--self:Printf("tracked");
+
+		--self:Printf("%s %s %s %s", inp[2], inp[3], inp[5], inp [8])
+
 		if spell then
 			if spell.succ and spell.succ ~= event then 
-				-- self:Printf("we deslined %s %s",event,spellName)
+				--self:Printf("event doesnt match target %s %s %s",event,spell.succ,spellName)
 				return false 
 			end 
-			-- self:Printf("We are looking %s %d. Player %s %s ",spellName,spellID,inp[6],event)
+			-- self:Printf("We are looking %s %d. Player %s %s ",spellName,spellID,inp[5],event)
 			-- у нас есть спелл, который мы отслеживаем, 
 			-- при этом его каст прошел, те надо запустить кд 
-			self:StartCD(inp[6],spell)
+			self:StartCD(inp[5],spell)
 		end
 		return true
 	end

@@ -22,7 +22,9 @@ libs\AceConfigCmd-3.0.lua
 libs\AceConfigDialog-3.0.lua
 libs\AceConfig-3.0.lua
 
+localization\enUS.lua
 localization\ruRU.lua
+
 
 main.lua
 func.lua
