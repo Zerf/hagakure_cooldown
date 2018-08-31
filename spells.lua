@@ -162,7 +162,16 @@ local spells = { -- spells that we can track by system
 		cast_time = 30,
 		quality = 2,
 	},
-	
+	{ -- soulshatter
+		spellID = 29858,
+		class = "WARLOCK", 
+		succ = "SPELL_CAST_SUCCESS",
+		specs = { 0 },
+		CD = 180,
+		type = 6, -- self cd
+		cast_time = 1,
+		quality = 2,
+	},
 
 
 ------ type == 8  станы
