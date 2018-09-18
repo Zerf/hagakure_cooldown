@@ -183,6 +183,7 @@ do -- addon initialize section
 		self:MakeSpellList() -- making spells for tracking from setup
 		self:MakeSpellGroups() -- making frames for align spells
 		self:GenerateOptions() -- generate addon options and registering command /hc
+		self:ClearSessionCD()
 	end
 
 	function HCoold:WIPE()
@@ -380,6 +381,22 @@ do -- save/restor cds between sessions
 		}
 		if not self.db.faction.LSCDs then self.db.faction.LSCDs = {} end
 		table.insert(self.db.faction.LSCDs, out)
+	end
+	
+	function HCoold:ClearSessionCD()
+		if not self.db.faction.LSCDs then self.db.faction.LSCDs = {} end
+		
+		local expired_keys = {}
+		
+		for k,v in next, self.db.faction.LSCDs do
+			if self:GetDiff(v.state_cd_end) < 0 then table.insert(expired_keys, k) end 
+		end
+		
+		for _, v in next, expired_keys do
+		   table.remove(self.db.faction.LSCDs,v)
+		end
+			
+		expired_keys = nil
 	end
 	
 	function HCoold:GetLastSesstionCD(id,player)
