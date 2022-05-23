@@ -69,7 +69,7 @@ local spells = { -- spells that we can track by system
 		specs = { 0 },
 		CD = 120,
 		type = 1, -- raid aura
-		cast_time = 10,
+		cast_time = 6, -- 6s for raid, 10s for group wide buff
 		quality = 1,
 	},
 	{ -- aura mastery
